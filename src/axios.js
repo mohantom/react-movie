@@ -31,4 +31,5 @@ const movieUrls = {
   review: ""
 };
 
-export { movieUrls, myAxios };
+export { movieUrls };
+export default myAxios;

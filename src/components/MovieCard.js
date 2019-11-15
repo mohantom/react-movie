@@ -3,9 +3,7 @@ import "./MovieCard.css";
 
 const basePosterUrl = "http://image.tmdb.org/t/p/w185/";
 
-const movieCard = React.memo(props => {
-  const movie = props.movie;
-
+const movieCard = React.memo( ({ movie }) => {
   return (
     <div>
       <div className="card column">

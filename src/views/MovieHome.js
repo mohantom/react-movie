@@ -1,40 +1,24 @@
-import React, { useState, useEffect } from "react";
-import { movieUrls, myAxios } from "../axios";
+import React, { useContext, useEffect } from "react";
 import MovieCard from "../components/MovieCard";
+import MovieContext from "../context/movieContext";
 
-const getMovies = page => {
-  // commit("SET_SPINNER", true);
-  if (page <= 0) {
-    return;
-  }
-  myAxios.get(movieUrls.popular(page)).then(res => {
-    console.log("got movies: ", res.data);
-  });
-
-  // commit("ADD_MOVIES", response.data.results);
-  // commit("UPDATE_CURRENT_PAGE", response.data.page);
-  // commit("SET_SPINNER", false);
-};
-
-const movieHome = React.memo(props => {
-  const [movies, setMovies] = useState([]);
+const MovieHome = () => {
+  const movieContext = useContext(MovieContext);
+  // const { movies, getMovies } = movieContext;
 
   useEffect(() => {
-    myAxios.get(movieUrls.popular(1)).then(res => {
-      console.log("got movies: ", res.data);
-      setMovies(res.data.results);
-    });
+    movieContext.getMovies();
   }, []);
 
   return (
     <div className="container">
       <div className="columns features is-multiline">
-        {movies.map(movie => (
+        {movieContext.movies.map(movie => (
           <MovieCard key={movie.id} movie={movie} />
         ))}
       </div>
     </div>
   );
-});
+};
 
-export default movieHome;
+export default MovieHome;
