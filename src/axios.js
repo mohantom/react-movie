@@ -27,8 +27,10 @@ const movieUrls = {
   popular: page => `movie/popular?page=${page}`,
   search: query => `search/movie?query=${query}`,
   toprated: page => `movie/top_rated?page=${page}`,
-  details: "",
-  review: ""
+  details: movieid =>
+    `https://api.themoviedb.org/3/movie/${movieid}?append_to_response=videos`,
+  review: movieid => `https://api.themoviedb.org/3/movie/${movieid}/reviews?`,
+  imdbLink: imdbid => `https://www.imdb.com/title/${imdbid}`
 };
 
 export { movieUrls };
