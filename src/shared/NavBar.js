@@ -55,15 +55,15 @@ const NavBar = ({ user }) => {
               <label className="lable"> {user} </label>
               <label className="lable"> date </label>
               <div className="buttons">
-                <Link v-if="!user" className="button is-primary" to="/signup">
+                {!user && (<Link className="button is-primary" to="/signup">
                   <strong>Sign up</strong>
-                </Link>
+                </Link>)}
 
-                <Link v-if="!user" className="button is-light" to="/login">
+                <Link className="button is-light" to="/login">
                   Log in
                 </Link>
 
-                <button v-if="user" className="button is-warning">
+                <button className="button is-warning">
                   Sign Out
                 </button>
               </div>

@@ -4,6 +4,7 @@ import "bulma/css/bulma.css";
 import "./App.css";
 import MovieState from "./context/movie/movieState";
 import MovieHome from "./views/MovieHome";
+import About from "./views/About";
 import NavBar from "./shared/NavBar";
 import firebase from "firebase";
 
@@ -15,7 +16,9 @@ function App() {
 
   const routes = (
     <Switch>
-      <Route path="/home" component={MovieHome} />
+      <Route path="/home" exact component={MovieHome} />
+      <Route path="/about" exact component={About} />
+
       <Route path="/" exact component={MovieHome} />
       <Redirect to="/" />
     </Switch>
