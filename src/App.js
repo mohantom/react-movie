@@ -2,11 +2,17 @@ import React, { Suspense } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import "bulma/css/bulma.css";
 import "./App.css";
-import MovieState from "./context/movieState";
+import MovieState from "./context/movie/movieState";
 import MovieHome from "./views/MovieHome";
 import NavBar from "./shared/NavBar";
+import firebase from "firebase";
 
 function App() {
+  let user = firebase.auth().currentUser;
+  if (!user) {
+    // return (<p>Please log in</p>);
+  }
+
   const routes = (
     <Switch>
       <Route path="/home" component={MovieHome} />

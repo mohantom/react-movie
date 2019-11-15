@@ -1,4 +1,4 @@
-import { GET_MOVIES } from "./actionTypes";
+import { GET_MOVIES } from "../actionTypes";
 
 export default (state, action) => {
   switch (action.type) {

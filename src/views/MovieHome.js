@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import MovieCard from "../components/MovieCard";
-import MovieContext from "../context/movieContext";
+import { MovieContext } from "../context/context";
 
 const MovieHome = () => {
   const movieContext = useContext(MovieContext);

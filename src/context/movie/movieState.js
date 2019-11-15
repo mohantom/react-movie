@@ -1,8 +1,8 @@
 import React, { useReducer } from "react";
-import axios, { movieUrls } from "../axios";
-import MovieContext from "./movieContext";
+import axios, { movieUrls } from "../../axios";
+import { MovieContext } from "../context";
 import MovieReducer from "./movieReducer";
-import { GET_MOVIES } from "./actionTypes";
+import { GET_MOVIES } from "../actionTypes";
 
 const MovieState = props => {
   const initialState = {
