@@ -72,13 +72,13 @@ const MovieState = props => {
     console.log(movie);
     dispatch({
       type: GET_MOVIE_DETAILS,
-      payload: { movie, videos, country, boxOffice, tags, extraInfo }
+      payload: { movie, videos, tags, extraInfo }
     });
   };
 
   const getMovieReviews = async movieId => {
     const response = await axios.get(movieUrls.review(movieId));
-    const reviews = response.data;
+    const reviews = response.data.results;
 
     console.log(reviews);
     dispatch({ type: GET_MOVIE_REVIEWS, payload: reviews });
@@ -89,6 +89,7 @@ const MovieState = props => {
       value={{
         movies: state.movies,
         movieDetails: state.movieDetails,
+        movieReviews: state.movieReviews,
         getMovies,
         getMovieDetails,
         getMovieReviews

@@ -6,7 +6,7 @@ const MovieDetailsInfo = ({ heading, subheading, isLink }) => {
       <p className="heading">
         {isLink && (
           <strong>
-            <a href={heading} target="_blank">
+            <a href={heading} target="_blank" rel="noopener noreferrer">
               IMDB Link
             </a>
           </strong>

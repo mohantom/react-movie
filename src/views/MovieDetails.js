@@ -1,12 +1,22 @@
 import React, { useEffect, useContext } from "react";
 import { MovieContext } from "../context/context";
 import MovieDetailsInfo from "../components/MovieDetailsInfo";
+import MovieDetailsOverview from "../components/MovieDetailsOverview";
+import MovieDetailsPoster from "../components/MovieDetailsPoster";
+import MovieDetailsReview from "../components/MovieDetailsReview";
+import MovieDetailsTag from "../components/MovieDetailsTag";
+import MovieDetailsTrailer from "../components/MovieDetailsTrailer";
 
 const MovieDetails = props => {
   const movieContext = useContext(MovieContext);
   const movieId = props.match.params.movieId;
-  const { movieDetails, getMovieDetails, getMovieReviews } = movieContext;
-  const { movie, videos, country, boxOffice, tags, extraInfo } = movieDetails;
+  const {
+    movieDetails,
+    movieReviews,
+    getMovieDetails,
+    getMovieReviews
+  } = movieContext;
+  const { movie, videos, tags, extraInfo } = movieDetails;
 
   useEffect(() => {
     getMovieDetails(movieId);
@@ -25,24 +35,28 @@ const MovieDetails = props => {
               </h1>
             </div>
             <div className="columns is-multiline">
-              {/* <MovieDetailsPoster
-                  :posterPath="movie.poster_path"
-                  :posterSize="'medium'"
-                /> */}
+              <MovieDetailsPoster
+                posterPath={movie.poster_path}
+                posterSize="medium"
+              />
 
               <div
                 className="column is-7 has-vertically-aligned-content"
                 data-aos="fade-right"
               >
-                {/* <MovieDetailsOverview :overview="movie.overview" />
-    
-                  <MovieDetailsTag
-                    v-for="(tagValue, tagName, index) in tags"
-                    :key="index"
-                    :tagName="tagName"
-                    :tagValue="tagValue"
-                  />
-                  <br /> */}
+                <MovieDetailsOverview overview={movie.overview} />
+
+                {Object.keys(tags).map(tagName => {
+                  return (
+                    <MovieDetailsTag
+                      key={tagName}
+                      tagName={tagName}
+                      tagValue={tags[tagName]}
+                    />
+                  );
+                })}
+
+                <br />
 
                 <div className="columns about-links">
                   {extraInfo.map(info => {
@@ -58,13 +72,11 @@ const MovieDetails = props => {
                   })}
                 </div>
 
-                {/* <div className="columns">
-                    <MovieDetailsTrailers
-                      v-for="video in videos"
-                      :key="video.id"
-                      :video="video"
-                    />
-                  </div> */}
+                <div className="columns">
+                  {videos.map(video => (
+                    <MovieDetailsTrailer key={video.id} video={video} />
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -73,9 +85,9 @@ const MovieDetails = props => {
 
       <div className="container">
         <h1 className="title is-2">Reviews</h1>
-        {/* <div v-for="review in reviews.results" :key="review.id">
-            <MovieDetailsReview :review="review" />
-          </div> */}
+        {movieReviews.map(review => {
+          return <MovieDetailsReview review={review} />;
+        })}
       </div>
     </div>
   );
