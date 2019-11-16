@@ -13,6 +13,7 @@ const MovieState = props => {
   const initialState = {
     movies: [],
     movieDetails: {
+      currentPage: 1,
       movie: {},
       videos: [],
       tags: {},
@@ -29,7 +30,7 @@ const MovieState = props => {
     }
     const res = await axios.get(movieUrls.popular(page));
     console.log("got movies: ", res.data);
-    dispatch({ type: GET_MOVIES, payload: res.data.results });
+    dispatch({ type: GET_MOVIES, payload: res.data.results, currentPage: res.data.page });
   };
 
   const getMovieDetails = async movieId => {
@@ -87,6 +88,7 @@ const MovieState = props => {
   return (
     <MovieContext.Provider
       value={{
+        currentPage: state.currentPage,
         movies: state.movies,
         movieDetails: state.movieDetails,
         movieReviews: state.movieReviews,

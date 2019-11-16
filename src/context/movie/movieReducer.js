@@ -9,7 +9,8 @@ export default (state, action) => {
     case GET_MOVIES:
       return {
         ...state,
-        movies: action.payload
+        movies: state.movies.concat(action.payload),
+        currentPage: action.currentPage
       };
     case GET_MOVIE_DETAILS:
       return {
