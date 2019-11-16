@@ -1,14 +1,11 @@
 import React, { useEffect, useContext } from "react";
 import { MovieContext } from "../context/context";
+import MovieDetailsInfo from "../components/MovieDetailsInfo";
 
 const MovieDetails = props => {
   const movieContext = useContext(MovieContext);
   const movieId = props.match.params.movieId;
-  const {
-    movieDetails,
-    getMovieDetails,
-    getMovieReviews
-  } = movieContext;
+  const { movieDetails, getMovieDetails, getMovieReviews } = movieContext;
   const { movie, videos, country, boxOffice, tags, extraInfo } = movieDetails;
 
   useEffect(() => {
@@ -45,20 +42,23 @@ const MovieDetails = props => {
                     :tagName="tagName"
                     :tagValue="tagValue"
                   />
-                  <br />
-    
-                  <div className="columns about-links">
-                    <MovieDetailsInfo
-                      className="column about-links"
-                      v-for="(info, index) in extraInfo"
-                      :key="index"
-                      :heading="info.heading"
-                      :subheading="info.subheading"
-                      :isLink="info.isLink"
-                    />
-                  </div>
-    
-                  <div className="columns">
+                  <br /> */}
+
+                <div className="columns about-links">
+                  {extraInfo.map(info => {
+                    return (
+                      <MovieDetailsInfo
+                        className="column about-links"
+                        key={info.heading}
+                        heading={info.heading}
+                        subheading={info.subheading}
+                        isLink={info.isLink}
+                      />
+                    );
+                  })}
+                </div>
+
+                {/* <div className="columns">
                     <MovieDetailsTrailers
                       v-for="video in videos"
                       :key="video.id"
