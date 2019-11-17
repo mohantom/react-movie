@@ -5,15 +5,20 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter } from "react-router-dom";
 import { auth } from "./firebase";
+import MovieState from "./context/movie/movieState";
+import AuthState from "./context/auth/authState";
 
 let app;
 auth.onAuthStateChanged(user => {
-  console.log("Current user: ", user);
   if (!app) {
     const app = (
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <AuthState>
+        <MovieState>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </MovieState>
+      </AuthState>
     );
     ReactDOM.render(app, document.getElementById("root"));
   }

@@ -3,7 +3,8 @@ import MovieCard from "../components/MovieCard";
 import MovieSearch from "../components/MovieSearch";
 import { MovieContext } from "../context/context";
 
-const MovieHome = () => {
+const MovieHome = (props) => {
+
   const movieContext = useContext(MovieContext);
   const { currentPage, movies, getMovies } = movieContext;
 

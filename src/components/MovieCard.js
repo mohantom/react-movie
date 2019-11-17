@@ -5,6 +5,11 @@ import "./MovieCard.css";
 const basePosterUrl = "http://image.tmdb.org/t/p/w185/";
 
 const movieCard = React.memo(({ movie }) => {
+
+  const truncate = text => {
+    return text.length > 50 ? text.substr(0, 50) + '...' : text;
+  }
+
   return (
     <Link to={`/movie/${movie.id}`}>
       <div>
@@ -27,7 +32,7 @@ const movieCard = React.memo(({ movie }) => {
               </div>
             </div>
 
-            <div className="content">{movie.overview}</div>
+            <div className="content">{truncate(movie.overview)}</div>
           </div>
         </div>
       </div>

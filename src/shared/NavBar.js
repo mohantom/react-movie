@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../context/context";
 
-const NavBar = ({ user }) => {
+const NavBar = ({ email }) => {
+  const context = useContext(AuthContext);
+  const currentDate = new Date().toLocaleDateString();
+
   return (
     <div>
       <nav
@@ -10,7 +14,7 @@ const NavBar = ({ user }) => {
         aria-label="main navigation"
       >
         <div className="navbar-brand">
-          <a className="navbar-item" href="https://lab49.com">
+          <a className="navbar-item" href="https://imdb.com">
             <img
               src="https://www.themoviedb.org/assets/2/v4/logos/408x161-powered-by-rectangle-green-bb4301c10ddc749b4e79463811a68afebeae66ef43d17bcfd8ff0e60ded7ce99.png"
               alt="TMDb Logo"
@@ -52,20 +56,27 @@ const NavBar = ({ user }) => {
 
           <div className="navbar-end">
             <div className="navbar-item">
-              <label className="lable"> {user} </label>
-              <label className="lable"> date </label>
+              <label className="lable"> {email} </label>
+              <label className="lable"> {currentDate} </label>
               <div className="buttons">
-                {!user && (
-                  <Link className="button is-primary" to="/signup">
+                {!email && (
+                  <Link
+                    className="button is-primary"
+                    to={{ pathname: "/login", state: { type: "signup" } }}
+                  >
                     <strong>Sign up</strong>
                   </Link>
                 )}
 
-                <Link className="button is-light" to="/login">
-                  Log in
-                </Link>
+                {!email && (
+                  <Link className="button is-light" to="/login">
+                    Log in
+                  </Link>
+                )}
 
-                <button className="button is-warning">Sign Out</button>
+                <button className="button is-warning" onClick={context.logout}>
+                  Sign Out
+                </button>
               </div>
             </div>
           </div>
