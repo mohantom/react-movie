@@ -5,6 +5,8 @@ import { MovieContext } from "../context";
 import MovieReducer from "./movieReducer";
 import {
   GET_MOVIES,
+  SET_MOVIES,
+  FILTER_MOVIES,
   GET_MOVIE_DETAILS,
   GET_MOVIE_REVIEWS
 } from "../actionTypes";
@@ -12,6 +14,7 @@ import {
 const MovieState = props => {
   const initialState = {
     movies: [],
+    originalMovies: [],
     movieDetails: {
       currentPage: 1,
       movie: {},
@@ -30,7 +33,34 @@ const MovieState = props => {
     }
     const res = await axios.get(movieUrls.popular(page));
     console.log("got movies: ", res.data);
-    dispatch({ type: GET_MOVIES, payload: res.data.results, currentPage: res.data.page });
+    dispatch({
+      type: GET_MOVIES,
+      payload: res.data.results,
+      currentPage: res.data.page
+    });
+  };
+
+  const searchMovie = async searchText => {
+    if (!searchText) {
+      return;
+    }
+
+    const res = await axios.get(movieUrls.search(searchText));
+    console.log("got movies from search: ", res.data);
+    dispatch({
+      type: SET_MOVIES,
+      payload: res.data.results,
+      currentPage: res.data.page
+    });
+  };
+
+  const filterMovies = filterText => {
+    dispatch({
+      type: FILTER_MOVIES,
+      payload: state.originalMovies.filter(m =>
+        m.title.toLowerCase().includes(filterText.toLowerCase())
+      )
+    });
   };
 
   const getMovieDetails = async movieId => {
@@ -93,6 +123,8 @@ const MovieState = props => {
         movieDetails: state.movieDetails,
         movieReviews: state.movieReviews,
         getMovies,
+        searchMovie,
+        filterMovies,
         getMovieDetails,
         getMovieReviews
       }}

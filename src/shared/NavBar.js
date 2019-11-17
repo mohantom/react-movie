@@ -5,7 +5,7 @@ const NavBar = ({ user }) => {
   return (
     <div>
       <nav
-        className="navbar is-dark is-fixed-top"
+        className="navbar is-dark"
         role="navigation"
         aria-label="main navigation"
       >
@@ -55,17 +55,17 @@ const NavBar = ({ user }) => {
               <label className="lable"> {user} </label>
               <label className="lable"> date </label>
               <div className="buttons">
-                {!user && (<Link className="button is-primary" to="/signup">
-                  <strong>Sign up</strong>
-                </Link>)}
+                {!user && (
+                  <Link className="button is-primary" to="/signup">
+                    <strong>Sign up</strong>
+                  </Link>
+                )}
 
                 <Link className="button is-light" to="/login">
                   Log in
                 </Link>
 
-                <button className="button is-warning">
-                  Sign Out
-                </button>
+                <button className="button is-warning">Sign Out</button>
               </div>
             </div>
           </div>

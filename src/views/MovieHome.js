@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import MovieCard from "../components/MovieCard";
+import MovieSearch from "../components/MovieSearch";
 import { MovieContext } from "../context/context";
 
 const MovieHome = () => {
@@ -18,6 +19,8 @@ const MovieHome = () => {
 
   return (
     <div className="container">
+      <MovieSearch />
+
       <div className="columns features is-multiline">
         {movies.map(movie => (
           <MovieCard key={movie.id} movie={movie} />
