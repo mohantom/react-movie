@@ -2,9 +2,16 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/context";
 
-const NavBar = ({ email }) => {
+const NavBar = (props) => {
   const context = useContext(AuthContext);
   const currentDate = new Date().toLocaleDateString();
+  const { email } = props;
+
+  const logout = () => {
+    context.logout().then(() => {
+      props.history && props.history.push('/login');
+    })
+  }
 
   return (
     <div>
@@ -74,7 +81,7 @@ const NavBar = ({ email }) => {
                   </Link>
                 )}
 
-                <button className="button is-warning" onClick={context.logout}>
+                <button className="button is-warning" onClick={logout}>
                   Sign Out
                 </button>
               </div>

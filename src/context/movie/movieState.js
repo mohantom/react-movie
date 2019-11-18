@@ -115,6 +115,23 @@ const MovieState = props => {
     dispatch({ type: GET_MOVIE_REVIEWS, payload: reviews });
   };
 
+  const getMoviesTopRated = async () => {
+    const movieAxios = [1, 2, 3, 4, 5].map(num =>
+      axios.get(movieUrls.toprated(num))
+    );
+    const [r1, r2, r3, r4, r5] = await Promise.all(movieAxios);
+
+    const moviesToprated = _.chain([r1, r2, r3, r4, r5])
+      .flatMap("data.results")
+      .map(movie => {
+        movie.release_year = movie.release_date.substr(0, 4);
+        return movie;
+      })
+      .value();
+
+    return moviesToprated;
+  };
+
   return (
     <MovieContext.Provider
       value={{
@@ -126,7 +143,8 @@ const MovieState = props => {
         searchMovie,
         filterMovies,
         getMovieDetails,
-        getMovieReviews
+        getMovieReviews,
+        getMoviesTopRated
       }}
     >
       {props.children}

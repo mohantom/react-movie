@@ -6,6 +6,7 @@ import MovieHome from "./views/MovieHome";
 import MovieDetails from "./views/MovieDetails";
 import About from "./views/About";
 import Login from "./views/Login";
+import MovieStats from "./views/MovieStats";
 import NavBar from "./shared/NavBar";
 import firebase from "firebase";
 import { AuthContext } from "./context/context";
@@ -30,6 +31,7 @@ function App(props) {
       <Route path="/movie/:movieId" exact component={MovieDetails} />
       <Route path="/about" exact component={About} />
       <Route path="/login" exact component={Login} />
+      <Route path="/moviestats" exact component={MovieStats} />
 
       <Route path="/" exact component={MovieHome} />
       <Redirect to="/" />

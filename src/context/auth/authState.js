@@ -43,7 +43,7 @@ const AuthState = props => {
   };
 
   const logout = () => {
-    firebase
+    return firebase
       .auth()
       .signOut()
       .then(() => {
