@@ -1,23 +1,16 @@
-import React, { useState, useContext } from "react";
+import React, { useContext, useRef } from "react";
 import { AuthContext } from "../context/context";
 
 const Login = props => {
   const context = useContext(AuthContext);
-  const [user, setUser] = useState({
-    email: "",
-    password: ""
-  });
-  const { email, password } = user;
-
-  const updateInput = e => {
-    setUser({
-      ...user,
-      [e.target.name]: e.target.value
-    });
-  };
+  const emailRef = useRef();
+  const passwordRef = useRef();
 
   const onSubmit = e => {
     e.preventDefault();
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
+    const user = {email: email, password: password};
 
     if (props.location.state && props.location.state.type === "signup") {
       context.signup(user).then(() => {
@@ -31,10 +24,8 @@ const Login = props => {
   };
 
   const resetForm = () => {
-    setUser({
-      email: "",
-      password: ""
-    });
+    emailRef.current.value = '';
+    passwordRef.current.value = '';
   };
 
   return (
@@ -48,8 +39,7 @@ const Login = props => {
                 <input
                   type="email"
                   name="email"
-                  value={email}
-                  onChange={updateInput}
+                  ref={emailRef}
                 />
               </div>
 
@@ -58,8 +48,7 @@ const Login = props => {
                 <input
                   type="password"
                   name="password"
-                  value={password}
-                  onChange={updateInput}
+                  ref={passwordRef}
                 />
               </div>
 
