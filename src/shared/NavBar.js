@@ -5,7 +5,6 @@ import { AuthContext } from "../context/context";
 const NavBar = (props) => {
   const context = useContext(AuthContext);
   const currentDate = new Date().toLocaleDateString();
-  const { email } = props;
 
   const logout = () => {
     context.logout().then(() => {
@@ -63,10 +62,10 @@ const NavBar = (props) => {
 
           <div className="navbar-end">
             <div className="navbar-item">
-              <label className="lable"> {email} </label>
+              <label className="lable"> {context.email} </label>
               <label className="lable"> {currentDate} </label>
               <div className="buttons">
-                {!email && (
+                {!context.email && (
                   <Link
                     className="button is-primary"
                     to={{ pathname: "/login", state: { type: "signup" } }}
@@ -75,7 +74,7 @@ const NavBar = (props) => {
                   </Link>
                 )}
 
-                {!email && (
+                {!context.email && (
                   <Link className="button is-light" to="/login">
                     Log in
                   </Link>

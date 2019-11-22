@@ -1,5 +1,5 @@
-import React, { Suspense, useContext } from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
+import React, { Suspense, useContext, useEffect } from "react";
+import { Route, Switch } from "react-router-dom";
 import "bulma/css/bulma.css";
 import "./App.css";
 import MovieHome from "./views/MovieHome";
@@ -8,17 +8,9 @@ import About from "./views/About";
 import Login from "./views/Login";
 import MovieStats from "./views/MovieStats";
 import NavBar from "./shared/NavBar";
-import firebase from "firebase";
-import { AuthContext } from "./context/context";
 import PrivateRoute from "./shared/PrivateRoute";
 
 function App(props) {
-  let user = firebase.auth().currentUser;
-
-  const authContext = useContext(AuthContext);
-
-  const { email } = user || {};
-
   const routes = (
     <Switch>
       <PrivateRoute exact path="/home" component={MovieHome} />
@@ -36,7 +28,7 @@ function App(props) {
   return (
     <div className="App">
       <div>
-        <NavBar id="navbar" email={email} />
+        <NavBar id="navbar" />
         <Suspense fallback={<p>Loading...</p>}>{routes}</Suspense>
       </div>
     </div>

@@ -5,8 +5,9 @@ import AuthReducer from "./authReducer";
 import { SET_USER } from "../actionTypes";
 
 const AuthState = props => {
+  const { email } = firebase.auth().currentUser || {};
   const initialState = {
-    email: ""
+    email: email
   };
 
   const [state, dispatch] = useReducer(AuthReducer, initialState);
