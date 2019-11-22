@@ -10,6 +10,7 @@ import MovieStats from "./views/MovieStats";
 import NavBar from "./shared/NavBar";
 import firebase from "firebase";
 import { AuthContext } from "./context/context";
+import PrivateRoute from "./shared/PrivateRoute";
 
 function App(props) {
   let user = firebase.auth().currentUser;
@@ -20,21 +21,15 @@ function App(props) {
 
   const routes = (
     <Switch>
-      <Route
-        path="/home"
-        exact
-        render={props =>
-          !authContext.email ? <Redirect to="/login" /> : <MovieHome />
-        }
-      />
+      <PrivateRoute exact path="/home" component={MovieHome} />
       {/* <Route path="/home" exact component={MovieHome} /> */}
-      <Route path="/movie/:movieId" exact component={MovieDetails} />
+      <PrivateRoute path="/movie/:movieId" exact component={MovieDetails} />
+      <PrivateRoute path="/moviestats" exact component={MovieStats} />
+
       <Route path="/about" exact component={About} />
       <Route path="/login" exact component={Login} />
-      <Route path="/moviestats" exact component={MovieStats} />
 
-      <Route path="/" exact component={MovieHome} />
-      <Redirect to="/" />
+      <Route path="*" exact render={props => <h1>Page Not Found</h1>} />
     </Switch>
   );
 
