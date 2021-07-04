@@ -2,6 +2,7 @@
   "name": "react-movie",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://mohantom.github.io/react-movie",
   "dependencies": {
     "@ag-grid-community/all-modules": "^22.1.1",
     "@ag-grid-community/react": "^22.1.2",
